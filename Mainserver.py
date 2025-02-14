@@ -13,10 +13,11 @@ def index():
 
 @app.route('/weather')
 def get_weather():
+    
     city = request.args.get('city')
 
     # Check for empty strings or string with only spaces
-    if city is None or not bool(city.strip()):
+    if not city or not city.strip():
         # You could render "City Not Found" instead like we do below
         city = "Moscow"
 
@@ -33,7 +34,6 @@ def get_weather():
         temp=f"{weather_data['main']['temp']:.2f}",
         feels_like=f"{weather_data['main']['feels_like']:.2f}"
     )
-
 
 if __name__ == "__main__":
     serve(app, host="0.0.0.0", port=8000)
